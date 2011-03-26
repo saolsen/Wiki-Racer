@@ -1,0 +1,10 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=1.5cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+
+\title{Ai Proposal}
+\author{Stephen Olsen\\saolsen@uwm.edu}
+
+\begin{document}
+\maketitle
+
+ 
