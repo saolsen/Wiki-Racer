@@ -1,0 +1,15 @@
+How this may be organized
+
+Just using web.py for the front end probably.
+two pages
+    page where you pick the two pages, (has all the validity checking)
+    sends the form to some backend python
+    backend returns just a simple list of the path
+    then second frontend page can display it however I want to.
+
+backend python
+takes two pages -> returns list of links between them.
+
+python functions needed
+    wikipedia parser, takes a link, returns a node
+    all my searching stuff.
