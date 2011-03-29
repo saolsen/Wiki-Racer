@@ -19,24 +19,23 @@ greatest determinate of how quickly one can move from the start page to the
 goal.\\
 
 \begin{description}
-    \item[AI Algorithm:] A*
+    \item[AI Algorithm:] Iterative deepening search
     \item[Input:] A starting page and a goal page.
     \item[Output:] A List of the links in order to get from the start to the
                    end. 
-    \item[Programming Language:] Python (and a little JavaScript)
-    \item[Environment:] It will run on both Windows and Unix 
+    \item[Programming Language:] Python (and a little JavaScript and possibly R)
+    \item[Environment:] It will run on both Windows and Unix but the user interaction
+                        will be via a web frontend. (See Below) 
 \end{description}
 
-
 \subsection*{Finding the Shortest Path}
-The English Wikipedia site has over 3.5 million pages with many more interconnected
-links between them. This makes any simple search algorithms such as BFS and DFS
-unusable as they would take too long. My plan is to develop a heuristic to be used
-with A* search that is based on how closely related wikipedia article categories are,
-and then use this to guide the algorithm to finding a path to the goal node.\\
+The Project will take the most recent database dump of the english wikipedia site
+and parse it out into a graph where articles are nodes and edges are the links between
+them. It will then find the Shortest Path between the two nodes by using Iterative
+deepening search to search for the goal node from the starting node.\\
 
 \subsection*{Bonus Points}
-For bonus points I'll be writing a web front end where you can put in the two pages
+For bonus points I'll be writing a web front-end where you can put in the two pages
 (start and goal) and then it'll show you a cool graphical representation of the path
 between the two pages.\\
 \end{document}
