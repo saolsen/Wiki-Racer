@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 """
-    These are all the scripts I used to parse the wikipedia xml db dump into
-    my own redis database of graph nodes.
+    This is the script used to parse the wikipedia xml db dump into
+    a redis database.
 """
+
+__author__ = 'Stephen Olsen'
+
 def parsePage(page):
 """
     Takes a Wikipedia page from the xml document <page>...</page>
