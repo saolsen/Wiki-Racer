@@ -11,5 +11,29 @@ backend python
 takes two pages -> returns list of links between them.
 
 python functions needed
-    wikipedia parser, takes a link, returns a node
-    all my searching stuff.
+    Parse the wikipedia dump into a useable graph
+    Do some analysis to get some good data for my heuristic about how closely
+    categories are related.
+
+    The actuial searching algorithm.
+
+    Things my graph nodes need to contain.
+    Links to other nodes //duh
+    Categories they are a part of.
+
+I probably can't just have a dictionary or anything for my graph (well maybe)
+But I will probably have too many nodes to do something like that, I'll have
+to have some sort of database structure for this to work.
+options
+    dictionaries
+    flockdb //looks promising.
+        Probably a good bet since I am having this implemented as a web app
+        and I don't want to load the entire graph into memory every time.
+            That would be the worst!
+        looks rough though and has a lot of yucky dependencies
+    couchdb or another nosql
+        could work but I wonder how quickly it would be to make a bunch of queries in a row (like lots and lots of queries in a row)
+
+    need to do some more research into storing and operating on large graphs,
+    I want something simple where I have to write the a* algorith my self as
+    that is part of the requierments of the assignment.

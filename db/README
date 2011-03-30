@@ -1,0 +1,2 @@
+This is where the config file for the redis database and the database dump itself are stored.
+Database dump will be gigantic once it has all of wikipedia in it.

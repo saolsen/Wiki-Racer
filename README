@@ -1,0 +1,6 @@
+Things that must be installed for this to work.
+redis
+redis-py //easyinstall
+
+web.py //easyinstall
+
