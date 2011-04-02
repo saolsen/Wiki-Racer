@@ -1,38 +1,37 @@
 #!/usr/bin/env python
-"""
-    This is the script used to parse the wikipedia xml db dump into
-    a redis database.
-"""
+# This is the script used to parse the wikipedia xml db dump into
+# a redis database.
 
 __author__ = 'Stephen Olsen'
 
 def parsePage(page):
-"""
-    Takes a Wikipedia page from the xml document <page>...</page>
+    """
+    Takes a Wikipedia page, list of lines
+    from the xml document <page>...</page>
     Returns a string representation of a graph node
     'pagename:link1,link2,link3' 
-"""
-    return 'fakepage:alpha,beta,gamma'
+    """
+    return 'Test Page|link one,link two,how about another link'
 
 def parseRedirect(redirect):
-"""
+    """
     Takes a Wikipedia redirect page from the xml document
     Returns a string representation of a redirect
     'pagename:real_link'
-"""
+    """
     return 'fakelink:reallink'
  
 def checkType(page):
-"""
+    """
     Returns true if the page is a real wikipedia page and false if it is
     a redirect.
-"""
+    """
     return true
 
 def main(document_name):
-"""
-    Take a xml document and return two files, nodes and redirects
-"""
+    """
+    Takes a xml document and return two files, nodes and redirects
+    """
 
     #Go through the file page by page,
     #use a simple regex to get everything between the two <data> or whatever

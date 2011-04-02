@@ -1,6 +1,8 @@
-Things that must be installed for this to work.
+Tings that must be installed for this to work.
 redis
-redis-py //easyinstall
 
-web.py //easyinstall
+//easyinstall modules
+redis-py
+unittest2
+web.py
 
