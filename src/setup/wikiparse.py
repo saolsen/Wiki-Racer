@@ -71,17 +71,17 @@ def main():
                 while line.strip() != '</page>':
                     page.append(line)
                     line = f.readline()
-            page.append(line)
-            page_str = "".join(page)
-            if checkType(page_str):
-                node = parsePage(page_str)
-                n.write(node + '\n')
-                print 'Node: ', node
-            else:
-                redirect = parseRedirect(page_str)
-                r.write(redirect + '\n')
-                print 'Redirect: ', redirect
-            page = []
+                page.append(line)
+                page_str = "".join(page)
+                if checkType(page_str):
+                    node = parsePage(page_str)
+                    n.write(node + '\n')
+                    print 'Node: ', node
+                else:
+                    redirect = parseRedirect(page_str)
+                    r.write(redirect + '\n')
+                    print 'Redirect: ', redirect
+                page = []
         f.close()
         n.close()
         r.close()
