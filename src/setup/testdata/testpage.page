@@ -1,5 +1,5 @@
 <page>
-    <title>Anarchism</title>
+    <title>Test Page</title>
     <id>12</id>
     <revision>
       <id>419101133</id>
@@ -10,7 +10,7 @@
       </contributor>
       <text xml:space="preserve">[[link one]] some more data here
 then a bit of stuff here, and more [[link two]] blah blah
-
+    [[here|there]]
 blah blah [[how about another link]] ok that works</text>
     </revision>
   </page>

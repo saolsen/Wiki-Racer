@@ -2,16 +2,31 @@
 # This is the script used to parse the wikipedia xml db dump into
 # a redis database.
 
+import re
+from BeautifulSoup import BeautifulStoneSoup
+
 __author__ = 'Stephen Olsen'
 
 def parsePage(page):
     """
-    Takes a Wikipedia page, list of lines
+    Takes a Wikipedia page string
     from the xml document <page>...</page>
     Returns a string representation of a graph node
     'pagename:link1,link2,link3' 
     """
-    return 'Test Page|link one,link two,how about another link'
+    # page is a string of the page xml
+    soup = BeautifulStoneSoup(page)
+    node = soup.title.contents[0] + '|'
+
+    for link in re.findall(r'(\[\[)([-_a-zA-Z0-90-9.()|  ]*?)(\]\])', soup.text):
+        rename = link[1].find('|')
+        if rename >= 0:
+            node += link[1][rename+1:] + ','
+        else:
+            node += link[1] + ','
+    node = node[:-1]
+
+    return node
 
 def parseRedirect(redirect):
     """
@@ -19,7 +34,7 @@ def parseRedirect(redirect):
     Returns a string representation of a redirect
     'pagename:real_link'
     """
-    return 'fakelink:reallink'
+    return 'AccessibleComputing:Computer accessibility'
  
 def checkType(page):
     """
@@ -41,6 +56,8 @@ def main(document_name):
     #learn regex and I get to iterate through the file instead of trying
     #to read in the whole thing at once.
 
+    # Get the file line by line, each time I have a page, join them and send
+    # the string to the right fuction.
 
     pass
 

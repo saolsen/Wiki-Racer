@@ -5,4 +5,4 @@ redis
 redis-py
 unittest2
 web.py
-
+BeautifulSoup
