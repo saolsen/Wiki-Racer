@@ -99,8 +99,8 @@ def mainPiCloud(filename, num):
     (nodefile,redirectfile)
     """
     import cloud
-    cloud.setkey(api_key='2290', \
-    api_secretkey='8a9c2860ccfb73860b76777a020e239f8b5af6c6')
+    cloud.setkey(api_key='XXXX', \
+    api_secretkey='XXXX')
 
     try:
         cloud.files.get(filename, './xml-parse')
