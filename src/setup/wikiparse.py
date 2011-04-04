@@ -73,20 +73,71 @@ def main():
                     line = f.readline()
                 page.append(line)
                 page_str = "".join(page)
-                if checkType(page_str):
-                    node = parsePage(page_str)
-                    n.write(node + '\n')
-                    print 'Node: ', node
-                else:
-                    redirect = parseRedirect(page_str)
-                    r.write(redirect + '\n')
-                    print 'Redirect: ', redirect
+                try:
+                    if checkType(page_str):
+                        node = parsePage(page_str)
+                        n.write(node + '\n')
+                        print 'Node: ', node
+                    else:
+                        redirect = parseRedirect(page_str)
+                        r.write(redirect + '\n')
+                        print 'Redirect: ', redirect
+                except:
+                    pass
                 page = []
         f.close()
         n.close()
         r.close()
     except IndexError:
         print "Please specify an input file"
+
+def mainPiCloud(filename, num):
+    """
+    Like the above but meant to be run on picloud. Takes a key for a
+    file stored on piclouds datastore, runs the same analysis on it
+    and returns a tuple of two new files stored on datastore
+    (nodefile,redirectfile)
+    """
+    import cloud
+    cloud.setkey(api_key='2290', \
+    api_secretkey='8a9c2860ccfb73860b76777a020e239f8b5af6c6')
+
+    try:
+        cloud.files.get(filename, './xml-parse')
+        f = open('./xml-parse', 'r')
+        n = open('./nodes', 'a')
+        r = open('./redirects', 'a')
+
+        page = []
+
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            if line.strip() == '<page>':
+                while line.strip() != '</page>':
+                    page.append(line)
+                    line = f.readline()
+                page.append(line)
+                page_str = "".join(page)
+                try:
+                    if checkType(page_str):
+                        node = parsePage(page_str)
+                        n.write(node + '\n')
+                    else:
+                        redirect = parseRedirect(page_str)
+                        r.write(redirect + '\n')
+                except:
+                    pass
+                page = []
+        f.close()
+        n.close()
+        r.close()
+        cloud.files.put('./nodes', 'n' + str(num))
+        cloud.files.put('./redirects', 'r' + str(num))
+        return ('n' + str(num),r + str(num))
+    except:
+        return False
 
 if __name__=="__main__":
     main()
