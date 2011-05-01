@@ -5,6 +5,8 @@
 import json
 import httplib2
 import urllib
+import sys
+from collections import deque
 
 __author__ = 'Stephen Olsen'
 
@@ -13,12 +15,27 @@ class WikiSearcher:
         self.conn = httplib2.Http()
         self.start_node = self._getPage(start_title)
         self.goal_node = self._getPage(goal_title)
-        self.queue = []
+        # All the nodes returned so far with their path to the top.
+        self.node_paths = {self.start_node.title: [self.start_node.title]}
+        self.queue = deque([self.start_node.title])
 
     def Search(self):
-        #return the path
-        return "Path from " + self.start_node.title \
-        + " to " + self.goal_node.title
+        # BFS to find the shortest path to the goal node.
+        while True:
+            try:
+                node = self._getPage(self.queue.popleft())
+                if node:
+                    if self.goal_node.title in node.links:
+                        return self.node_paths[node.title] + [self.goal_node.title]
+                    else:
+                        for child in node.links:
+                            print child
+                            if child not in self.node_paths:
+                                self.queue.append(child)
+                                self.node_paths[child] = self.node_paths[node.title] + [child]
+            except:
+                print sys.exc_info()[0]
+                return False
     
     def _getPage(self, title):
         more_links = True
@@ -42,7 +59,7 @@ class WikiSearcher:
                 else:
                     more_links = False
                     links = [];
-            return Node(title, links)
+            return Node(page['query']['pages'][pageid]['title'], links)
         except:
             print "Might want to check your internet connection"
             return False
@@ -54,8 +71,8 @@ class Node:
 
 def main(start_title, goal_title):
     search = WikiSearcher(start_title, goal_title)
-    print search.start_node.links
-    print search.goal_node.links
+    return search.Search()
+    
 
 if __name__=="__main__":
     s = raw_input("Enter state page: ")
