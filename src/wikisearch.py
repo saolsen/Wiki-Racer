@@ -15,27 +15,36 @@ class WikiSearcher:
         self.conn = httplib2.Http()
         self.start_node = self._getPage(start_title)
         self.goal_node = self._getPage(goal_title)
-        # All the nodes returned so far with their path to the top.
-        self.node_paths = {self.start_node.title: [self.start_node.title]}
-        self.queue = deque([self.start_node.title])
+        if self.start_node and self.goal_node:
+            self.node_paths = {self.start_node.title: [self.start_node.title]}
+            self.queue = deque([self.start_node.title])
+        else:
+            raise Exception('Invalid Pages')
 
     def Search(self):
         # BFS to find the shortest path to the goal node.
         while True:
             try:
-                node = self._getPage(self.queue.popleft())
+                label = self.queue.popleft()
+                node = self._getPage(label)
                 if node:
                     if self.goal_node.title in node.links:
-                        return self.node_paths[node.title] + [self.goal_node.title]
+                        return self.node_paths[label] + [self.goal_node.title]
+                        break
+                    # Make sure we didn't miss it on the last pass due to wikipedia sending
+                    # bad title names (it happens)
+                    elif node.title == self.goal_node.title:
+                        return self.node_paths[label]
                     else:
                         for child in node.links:
                             print child
                             if child not in self.node_paths:
                                 self.queue.append(child)
-                                self.node_paths[child] = self.node_paths[node.title] + [child]
-            except:
+                                self.node_paths[child] = self.node_paths[label] + [child]
+            except Exception as e:
                 print sys.exc_info()[0]
-                return False
+                print e
+                return "Path doesn't seem to exist."
     
     def _getPage(self, title):
         more_links = True
@@ -59,7 +68,10 @@ class WikiSearcher:
                 else:
                     more_links = False
                     links = [];
-            return Node(page['query']['pages'][pageid]['title'], links)
+            if links != []:
+                return Node(page['query']['pages'][pageid]['title'], links)
+            else:
+                return False
         except:
             print "Might want to check your internet connection"
             return False
@@ -70,11 +82,13 @@ class Node:
         self.links = links; #Should be a list
 
 def main(start_title, goal_title):
-    search = WikiSearcher(start_title, goal_title)
-    return search.Search()
-    
+    try:
+        search = WikiSearcher(start_title, goal_title)
+        return search.Search()
+    except Exception as e:
+        return str(e)
 
 if __name__=="__main__":
     s = raw_input("Enter state page: ")
     g = raw_input("Enter goal page: ")
-    print main(s,g)
+    print main(s, g)
