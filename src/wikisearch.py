@@ -78,4 +78,3 @@ if __name__=="__main__":
     s = raw_input("Enter state page: ")
     g = raw_input("Enter goal page: ")
     print main(s,g)
-

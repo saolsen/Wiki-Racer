@@ -1,8 +1,1 @@
-Tings that must be installed for this to work.
-redis
-
-//easyinstall modules
-redis-py
-unittest2
-web.py
-BeautifulSoup
+Finds the shortest distance between two wikipedia pages using BFS
