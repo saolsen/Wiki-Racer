@@ -1,11 +1,14 @@
 #!/usr/bin/env python
-# Finds the shortest path between two wikipedia nodes
-# AI final project
+"""
+Finds the shortest path between two wikipedia nodes
+AI final project
+"""
 
 import json
 import httplib2
 import urllib
 import sys
+import re
 from collections import deque
 
 __author__ = 'Stephen Olsen'
@@ -37,10 +40,13 @@ class WikiSearcher:
                         return self.node_paths[label]
                     else:
                         for child in node.links:
-                            print child
-                            if child not in self.node_paths:
+                            fake_link = bool(re.match("Category", child) or re.match("Template", child)
+                                        or re.match("Portal", child) or re.match("Wikipedia", child)
+                                        or re.match("Help", child) or re.match("File", child))
+                            if child not in self.node_paths and not fake_link:
                                 self.queue.append(child)
                                 self.node_paths[child] = self.node_paths[label] + [child]
+                                print child
             except Exception as e:
                 print sys.exc_info()[0]
                 print e
