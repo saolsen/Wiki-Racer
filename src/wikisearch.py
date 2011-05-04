@@ -2,6 +2,12 @@
 """
 Finds the shortest path between two wikipedia nodes
 AI final project
+
+It works best if you make sure they are both 'real' wikipedia pages. Goal pages that
+don't really get linked to much like general pages that link to the specific ones are
+not great (like Tree).
+
+It also works best if you go to the sites and write down the real titles.
 """
 
 import json
@@ -46,13 +52,14 @@ class WikiSearcher:
                             if child not in self.node_paths and not fake_link:
                                 self.queue.append(child)
                                 self.node_paths[child] = self.node_paths[label] + [child]
-                                print child
+                                #print child
             except Exception as e:
                 print sys.exc_info()[0]
                 print e
                 return "Path doesn't seem to exist."
     
     def _getPage(self, title):
+        # Uses the Wikipedia API (and httplib2) to get all the links for a page
         more_links = True
         links = []
         params = {'action': 'query', 'prop': 'links', 'pllimit': '500', 'format': 'json'}
@@ -85,7 +92,7 @@ class WikiSearcher:
 class Node:
     def __init__(self, title, links):
         self.title = title;
-        self.links = links; #Should be a list
+        self.links = links;
 
 def main(start_title, goal_title):
     try:
@@ -95,6 +102,6 @@ def main(start_title, goal_title):
         return str(e)
 
 if __name__=="__main__":
-    s = raw_input("Enter state page: ")
+    s = raw_input("Enter start page: ")
     g = raw_input("Enter goal page: ")
     print main(s, g)

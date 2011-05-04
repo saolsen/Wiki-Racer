@@ -1,0 +1,49 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=1.5cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+
+\title{AI Final Project}
+\author{Stephen Olsen\\saolsen@uwm.edu}
+
+\begin{document}
+\maketitle
+
+\subsection*{Introduction}
+A Wikipedia race is a competition between two or more people where given a
+start page and a goal page you try to get to get to the end page as quickly
+as possible by clicking on internal wikipedia links. For an example and to try
+it out see http://www.wikipediarace.com/
+
+This project is my attempt at an application that tries to find the shortest
+path between two wikipedia pages via links, as length of path is probably the
+greatest determinate of how quickly one can move from the start page to the
+goal.\\
+
+\begin{description}
+    \item[AI Algorithm:] Breadth first search.
+    \item[Input:] A starting page and a goal page.
+    \item[Output:] A List of the links in order to get from the start to the
+                   end. 
+    \item[Programming Language:] Python
+    \item[Environment:] It will run on both Windows and Unix 
+\end{description}
+
+\subsection*{Description}
+Takes a start page and a goal page as input. It them does a Breadth first search to
+determine the shortest distance in links that it takes to get to the next page.
+It filters out non real pages (like categories and wikipedia internal pages) but
+does not stop untill it finds the goal. If there isn't a path it wont tell you so
+untill it has exhaused whatever strongly connected component it started on (which
+can take a very long time). For best results pick two common pages with lots of links.\\
+
+\subsection*{Sample Usage}
+\begin{description}
+    \item Enter start page: Monk
+    \item Enter goal page: FIFA
+    \item link1
+    \item link2
+    \item link3
+    \item .............
+    \item ['Monk', 'England', 'FIFA']
+\end{description}
+
+\end{document}
